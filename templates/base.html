@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+
+    {%load custom_filters%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Artistic{% endblock %}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+        .white{
+            display:flex;
+            margin:auto 0;
+            flex-direction: row;
+            width:100%;
+            padding:15px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 20px 0;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2em;
+        }
+        section {
+            padding: 20px 0;
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #f4f4f4;
+            padding-bottom: 5px;
+        }
+        p {
+            margin-bottom: 20px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            background: #f4f4f4;
+            margin: 10px 0;
+            padding: 10px;
+            border-left: 5px solid #333;
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+        footer p {
+            margin: 0;
+        }
+        .contact-info {
+            padding: 10px 0;
+        }
+        .navbar {
+            padding:0px;
+            background: #f8f9fa;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1000;
+            margin: 0;
+        }
+        .navbar-brand {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+            text-decoration: none;
+            padding-top: 20px;
+        }
+        .navbar-nav {
+            display: flex;
+            flex-direction: row;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav-item {
+            margin-left: 20px;
+        }
+        .nav-link {
+            color: #333;
+            text-decoration: none;
+            padding: 5px 10px;
+            display: block;
+            font-size: 1em;
+        }
+        .nav-link:hover {
+            background: #ddd;
+            border-radius: 5px;
+        }
+        .dropdown-menu {
+            display: none;
+            position: absolute;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 5px;
+            padding: 10px;
+            list-style: none;
+            z-index: 1000;
+        }
+        .dropdown-menu .dropdown-item {
+            padding: 5px 10px;
+            color: #333;
+            text-decoration: none;
+        }
+        .dropdown-menu .dropdown-item:hover {
+            background: #ddd;
+        }
+        .dropdown:hover .dropdown-menu {
+            display: block;
+        }
+        @media (max-width: 768px) {
+            .navbar-toggler {
+                display: block;
+                background: none;
+                border: none;
+                font-size: 1.5em;
+                cursor: pointer;
+            }
+            .navbar-collapse {
+                display: none;
+            }
+            .navbar-collapse.show {
+                display: block;
+            }
+            .navbar-nav {
+                flex-direction: column;
+                width: 100%;
+            }
+            .nav-item {
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="white">
+            <a class="navbar-brand" href="/Home">ARTISTIC</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            CONTENTS
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="/paintings">Paintings</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/cart">My Cart</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/orders">Orders</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/all_artist">Artists</a>
+                        </div>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="/about">ABOUT</a></li>
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">LOGOUT</a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'Login' %}">LOGIN</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">REGISTER</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    <nav>
+        <!-- other navigation links -->
+        {% if user.is_authenticated and user.profile.is_artist %}
+            <a href="{% url 'add_art' %}">Add Art</a>
+        {% endif %}
+    </nav>
+
+    
+    <!-- Flash Messages -->
+    {% if messages %}
+        <div class="container">
+            <div class="alert alert-info">
+                {% for message in messages %}
+                    <p class="{{ message.tags }}">{{ message }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function toggleNavbar() {
+            var navbarCollapse = document.getElementById('navbarNav');
+            if (navbarCollapse.classList.contains('show')) {
+                navbarCollapse.classList.remove('show');
+            } else {
+                navbarCollapse.classList.add('show');
+            }
+        }
+    </script>
+</body>
+</html>

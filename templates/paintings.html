@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}Welcome to My Art Gallery{% endblock %}
+
+{% block content %}
+<div class="container1">
+    <div class="row">
+        {% for a in arts %}
+            <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                <div class="art-item">
+                    <div class="image-container">
+                        <img src="/media/{{ a.img }}" alt="{{ a.title }}" class="img-fluid art-image">
+                    </div>
+                    <div class="art-details">
+                        <h5 class="art-title"><strong style="color:black">{{ a.title }}</strong></h5>
+                        <p><strong style="color:#808000">Price: </strong> ${{ a.price }}</p>
+                        
+                        <p><strong style="color:#808000">Type:</strong> {% if a.IsDigital %}Digital Art{% else %}Canvas Painting{% endif %}</p>
+                        <a href="/artapp/art/{{ a.url }}" class="btn">View Art</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .art-item {
+        background-color: #f8f9fa;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2),
+                    0 20px 30px rgba(0, 0, 0, 0.15);
+        transform: translateY(-5px);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .art-item:hover {
+        transform: scale(1.05);
+    }
+    .image-container {
+        width: 100%;
+        height: 200px; /* Set a fixed height for the image container */
+        overflow: hidden;
+    }
+    .art-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Ensure the image covers the container */
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+    }
+    .art-details {
+        padding: 15px;
+    }
+    .art-title {
+        color: #343a40;
+        margin-bottom: 10px;
+    }
+    .art-description {
+        color: #6c757d;
+        margin-bottom: 10px;
+    }
+    .art-details p {
+        color: #495057;
+        margin-bottom: 5px;
+    }
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+    .btn{
+        background-color: black;
+        color: white;
+    }
+    .btn:hover {
+        transform: scale(1.05);
+        color: #85853b;
+    }
+    .container1{
+        padding: 20px;
+        
+    }
+</style>
+
+{% endblock %}

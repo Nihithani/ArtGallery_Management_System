@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Orders{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center mb-4">My Orders</h2>
+    {% if orders %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Artwork</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Total Price</th>
+                    <th scope="col">Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>
+                        <ul class="list-unstyled">
+                            {% for item in order.items.all %}
+                            <li><a href="{% url 'view_art' item.art.url %}">{{ item.art.title }}</a></li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    <td>{{ order.items.count }}</td>
+                    <td>${{ order.total_price }}</td>
+                    <td>{{ order.created_at }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-center">You have no orders.</p>
+    {% endif %}
+</div>
+
+
+
+
+{% endblock %}

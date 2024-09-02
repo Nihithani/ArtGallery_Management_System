@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}View Art - {{ theart.title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <img src="/media/{{ theart.img }}" class="img-fluid rounded" alt="{{ theart.title }}">
+        </div>
+        <div class="col-lg-4">
+            <div class="art-details bg-white">
+                <h2 class="text-black"><strong style="color:black">{{ theart.title }}</strong></h2>
+                <h4 class="text-muted"><strong style="color:#808000">Artist: </strong>{{ theart.ArtistName.name }}</h4>
+                <p class="text-muted"><strong style="color:#808000">About Art:</strong></p>
+                <p>{{ theart.aboutArt | safe }}</p>
+                <p class="text-muted">Art Price: <strong style="color:black">${{ theart.price }}</strong></p>
+                <div class="mt-4">
+                    <a href="{% url 'add_to_cart' theart.Art_id %}" class="btn btn-primary btn-block">Add To Cart</a>
+                    <a href="{% url 'paintings' %}" class="btn btn-secondary btn-block mt-3">Back to Home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .art-details {
+        border: 1px;
+        border-radius: 8px;
+        padding: 20px;
+    }
+    .btn-primary {
+        background-color: black;
+        border-color: black;
+    }
+    .btn-primary:hover {
+        background-color:white;
+        color:black;
+        border: 1px solid black;
+    }
+    .btn-secondary {
+        background-color: white;
+        border-color: black;
+        color: black;
+    }
+</style>
+
+{% endblock %}

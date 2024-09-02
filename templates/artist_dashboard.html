@@ -1,0 +1,11 @@
+<!-- artist_dashboard.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Add New Artwork</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Artwork</button>
+</form>
+{% endblock %}

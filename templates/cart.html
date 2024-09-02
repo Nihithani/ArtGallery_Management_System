@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+<style>
+    .cart-page {
+        padding: 25px;
+        color: black;
+    }
+    .cart-table img {
+        width: 100px;
+        height: auto;
+        border-radius: 5px;
+    }
+    .total {
+        margin-top: 20px;
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+    .btn {
+        color: white;
+    }
+    .btn-danger {
+        background-color: black;
+        border-color: black;
+    }
+    .btn-success {
+        background-color: black;
+        border-color: black;
+    }
+</style>
+
+<div class="container mt-5">
+    <h2 class="text-black">Your Cart</h2>
+    {% if cart_items %}
+    <div class="cart-page">
+        <table class="table table-striped cart-table">
+            <thead>
+                <tr>
+                    <th>Artwork</th>
+                    <th>Image</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.art.title }}</td>
+                    <td><img src="{{ item.art.img.url }}" alt="{{ item.art.title }}"></td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.item_total}}</td>
+                    <td><a type='button' class='btn btn-danger' href="{% url 'remove_from_cart' item.id %}">Remove</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="total">
+            <h3>Total: ${{ total|floatformat:2 }}</h3>
+            <a href="{% url 'place_order' %}" class="btn btn-success">Place Order</a>
+        </div>
+    </div>
+    {% else %}
+        <p class="text-black">Your cart is empty.</p>
+    {% endif %}
+</div>
+{% endblock %}

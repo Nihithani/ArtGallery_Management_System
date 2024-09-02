@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Place Order{% endblock %}
+
+{% block content %}
+<div class="container mt-5 text-dark">
+    <h2 style="color:#800000"  class="text-center mb-4"><strong>Place Order</strong></h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <strong>{{ form.as_p }}</strong>
+                <div class="mt-4">
+                    <h3 class="text-center"><strong style="color:#808000;">Total:</strong> ${{ total|floatformat:2 }}</h3>
+                    <button type="submit" class="btn btn-lg btn-success btn-block">Place Order</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <h3 class="mt-5 mb-4 text-center">Cart Items</h3>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Artwork</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.art.title }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>${{ item.art.price|floatformat:2 }}</td>
+                    <td>${{ item.total_amount|floatformat:2 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .btn{
+        color:white;
+        background-color:black;
+        border: 1px solid black;
+    }
+    .btn:hover{
+        color:black;
+        background-color:white;;
+        border: 1px solid black;
+    }
+</style>
+{% endblock %}
